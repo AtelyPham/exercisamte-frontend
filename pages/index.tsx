@@ -32,7 +32,7 @@ const Home: NextPage = () => {
               </Link>
             </div>
             <div>
-              <Link href='/'>
+              <Link href='/login'>
                 <a className='text-base text-red-400 hover:text-red-500 active:text-red-400'>
                   Đăng nhập
                 </a>
@@ -54,9 +54,11 @@ const Home: NextPage = () => {
                 </p>
               </div>
               <div className='mt-5'>
-                <button className='px-8 py-3 bg-red-400 rounded-md text-white hover:bg-red-500 active:bg-red-400 w-full md:w-52'>
-                  Bắt đầu
-                </button>
+                <Link href='/login'>
+                  <button className='px-8 py-3 bg-red-400 rounded-md text-white hover:bg-red-500 active:bg-red-400 w-full md:w-52'>
+                    <a>Bắt đầu</a>
+                  </button>
+                </Link>
               </div>
             </div>
           </main>
