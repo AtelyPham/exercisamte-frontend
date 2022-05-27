@@ -1,9 +1,28 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
+import fetcher from '../lib/fetcher'
 
 const Login = () => {
+  const route = useRouter()
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async ev => {
+    ev.preventDefault()
+
+    const email = (ev.target as any).elements.email.value
+
+    const resp = await fetcher<{ route: string }>('/api/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+      }),
+    })
+
+    route.push(resp.route, undefined, { shallow: true })
+  }
+
   return (
     <div className='container flex justify-center items-center w-screen h-screen mx-auto'>
       <Head>
@@ -25,14 +44,19 @@ const Login = () => {
           </h1>
         </div>
         <div className='w-full lg:w-4/6'>
-          <form>
+          <form onSubmit={handleSubmit}>
             <input
               type='email'
+              name='email'
+              id='email'
               placeholder='Nhập email...'
               className='bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-400 placeholder:italic'
               required
             />
-            <button className='py-2 bg-red-400 rounded-md text-white hover:bg-red-500 active:bg-red-400 w-full mt-4 lg:mt-6'>
+            <button
+              type='submit'
+              className='py-2 bg-red-400 rounded-md text-white hover:bg-red-500 active:bg-red-400 w-full mt-4 lg:mt-6'
+            >
               Lấy link
             </button>
           </form>
